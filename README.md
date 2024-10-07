@@ -1,15 +1,21 @@
-## SQLite Lab
+# BooksDB Application
 
-### Lab:
+## Overview
+This Python application connects to a SQLite database and performs basic CRUD operations on a books table. The application includes CI/CD with GitHub Actions.
 
-In this lab we extract the grocerydb database which is hosted on a github repository. We transform and load it into SQLite and then execute two sample queries: 
-* Sum of the count_product column.
-* Average of the count_product column.
+## Setup
 
-Artitechtural diagram showing how the project works:
+1. Clone the repository.
+2. Build the Docker image: `make docker-build`
+3. Run the application in Docker: `make docker-run`
 
-![etl](https://github.com/nogibjj/sqlite-lab-fj49/assets/101464414/2809102f-e363-4d23-8311-b7ec04f43804)
+## Requirements
+- Python 3.10
+- Docker (optional)
+- sqlite3
+- pytest
 
-I took help from Claude.AI from the company Anthropic (Open AI's competitor)
-
-
+## Testing
+Run the tests with:
+```bash
+make test
