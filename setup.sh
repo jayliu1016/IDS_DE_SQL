@@ -1,5 +1,8 @@
-#!/usr/bin/env bash
-source /home/codespace/venv/bin/activate
-#append it to bash so every shell launches with it 
-echo 'source /home/codespace/venv/bin/activate' >> ~/.bashrc
-make install-tensorflow
+#!/bin/bash
+
+# Update and install any necessary packages
+apt-get update && apt-get install -y sqlite3
+
+# Run the application setup if needed
+python main.py
+
