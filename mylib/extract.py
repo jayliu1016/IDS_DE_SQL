@@ -1,17 +1,9 @@
-"""
-Extract a dataset from a URL like Kaggle or data.gov. JSON or CSV formats tend to work well
+import pandas as pd
 
-food dataset
-"""
-import requests
+def load_data_from_csv(file_path):
+    """Load data from a CSV file and return as a pandas DataFrame."""
+    return pd.read_csv(file_path)
 
-def extract(url="https://raw.githubusercontent.com/Barabasi-Lab/GroceryDB/main/data/GroceryDB_IgFPro.csv", 
-            file_path="data/GroceryDB_IgFPro.csv"):
-    """"Extract a url to a file path"""
-    with requests.get(url) as r:
-        with open(file_path, 'wb') as f:
-            f.write(r.content)
-    return file_path
 
 
 
