@@ -1,25 +1,40 @@
-"""
-ETL-Query script
-"""
+import sqlite3
 
-import argparse
+# Connect to the database
+conn = sqlite3.connect('BooksDB.db')
+cursor = conn.cursor()
 
-from mylib.extract import extract
-from mylib.transform_load import load
-from mylib.query import query
+# Create table
+cursor.execute('''CREATE TABLE IF NOT EXISTS books
+                  (id INTEGER PRIMARY KEY, title TEXT, author TEXT, price REAL)''')
 
-parser = argparse.ArgumentParser()
-parser.add_argument("--step", choices=["extract", "load", "query"])
-args = parser.parse_args()
+# Insert data
+def insert_book(title, author, price):
+    cursor.execute('INSERT INTO books (title, author, price) VALUES (?, ?, ?)', (title, author, price))
+    conn.commit()
 
-if args.step == "extract":
-    print("Extracting data...")
-    extract()
+# Query data
+def get_books():
+    cursor.execute('SELECT * FROM books')
+    return cursor.fetchall()
 
-elif args.step == "load":
-    print("Transforming and loading data...")
-    load()
+# Update data
+def update_book_price(book_id, new_price):
+    cursor.execute('UPDATE books SET price = ? WHERE id = ?', (new_price, book_id))
+    conn.commit()
 
-elif args.step == "query":
-    print("Querying data...")
-    query()
+# Delete data
+def delete_book(book_id):
+    cursor.execute('DELETE FROM books WHERE id = ?', (book_id,))
+    conn.commit()
+
+# Example usage
+insert_book('The Great Gatsby', 'F. Scott Fitzgerald', 10.99)
+books = get_books()
+print(books)
+update_book_price(1, 12.99)
+delete_book(1)
+
+# Close the connection
+conn.close()
+
